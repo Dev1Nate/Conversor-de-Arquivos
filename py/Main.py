@@ -36,7 +36,7 @@ def to_pdf(tipo,path):
 
 #================
 
-def to_docx(tipo,path):
+def to_txt(tipo,path):
     if tipo == 'pdf':
         text = converter(path)
         x = doc.convert_text( text,
@@ -52,7 +52,33 @@ def to_docx(tipo,path):
     print(x)
 
 
+#to_txt("markdown","teste/text_example.txt" )
+#to_txt("pdf","teste/Modules.pdf")
+#to_txt("docx","teste/world.docx")
+
+
+#================
+
+def to_docx(tipo,path):
+    if tipo == 'pdf':
+        text = converter(path)
+        x = doc.convert_text( text,
+                         to="docx",
+                         format="markdown",outputfile="teste.docx",extra_args=[
+        "--reference-doc=format/modelo.docx"
+    ]
+                         )
+        
+    else:
+        x = doc.convert_file( path,
+                         to="docx",
+                         format=tipo,outputfile="teste.docx",extra_args=[
+        "--reference-doc=format/modelo.docx"
+    ] 
+                         )
+    print(x)
+
+
 #to_docx("markdown","teste/text_example.txt" )
 #to_docx("pdf","teste/Modules.pdf")
 #to_docx("docx","teste/world.docx")
-
