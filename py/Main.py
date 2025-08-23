@@ -82,3 +82,30 @@ def to_docx(tipo,path):
 #to_docx("markdown","teste/text_example.txt" )
 #to_docx("pdf","teste/Modules.pdf")
 #to_docx("docx","teste/world.docx")
+
+
+#================
+
+def to_pptx(tipo,path):
+    if tipo == 'pdf':
+        text = converter(path)
+        x = doc.convert_text( text,
+                         to="pptx",
+                         format="markdown",outputfile="teste.pptx", extra_args=[
+        "--reference-doc=format/format.pptx"
+    ]
+                         )
+        
+    else:
+        x = doc.convert_file( path,
+                         to="pptx",
+                         format=tipo,outputfile="teste.pptx", extra_args=[
+        "--reference-doc=format/format.pptx"
+    ]
+                         )
+    print(x)
+
+
+to_pptx("markdown","teste/text_example.txt" )
+#to_pptx("pdf","teste/Modules.pdf")  #fica bugado devido aos tamanhos
+#to_pptx("docx","teste/world.docx")
