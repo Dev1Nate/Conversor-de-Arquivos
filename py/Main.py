@@ -2,7 +2,7 @@ import pypandoc as doc
 import os
 from util.extract_pdf import converter 
 
-#NAO DA PRA CONVERTER SLIDE PRA PDF
+#NAO DA PRA CONVERTER SLIDE PRA PDF(mas da para fazer se estiver em um linux)
 
 def to_pdf(tipo,path): 
     if tipo == 'pdf':
@@ -34,5 +34,25 @@ def to_pdf(tipo,path):
 #to_pdf("docx","teste/world.docx") # docx - pdf FEITO
 
 
+#================
 
+def to_docx(tipo,path):
+    if tipo == 'pdf':
+        text = converter(path)
+        x = doc.convert_text( text,
+                         to="markdown",
+                         format="markdown",outputfile="teste.txt"
+                         )
+        
+    else:
+        x = doc.convert_file( path,
+                         to="markdown",
+                         format=tipo,outputfile="teste.txt"
+                         )
+    print(x)
+
+
+#to_docx("markdown","teste/text_example.txt" )
+#to_docx("pdf","teste/Modules.pdf")
+#to_docx("docx","teste/world.docx")
 
