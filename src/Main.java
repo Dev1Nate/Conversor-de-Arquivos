@@ -20,8 +20,12 @@ public class Main {
             ps.redirectErrorStream(true);
             Process process = ps.start();
             try (BufferedReader ln = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line = ln.readLine();
-                System.out.println(line);
+                String lastLine = null;
+                String line;
+                while ((line = ln.readLine()) != null) {
+                    lastLine = line;
+                }
+                System.out.println(lastLine);
             }
 
         }catch (RuntimeException e ){

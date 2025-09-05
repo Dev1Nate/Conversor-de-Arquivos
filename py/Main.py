@@ -2,7 +2,13 @@ import pypandoc as doc
 from UTILS.extract_pdf import converter 
 import sys
 import os
+import subprocess
 
+
+subprocess_kwargs = {
+    "stderr": subprocess.DEVNULL,
+    "stdout": subprocess.DEVNULL
+}
 
 def resource_path(relative_path: str) -> str:
     """Pega o caminho correto mesmo se rodar via PyInstaller"""
@@ -29,7 +35,7 @@ def to_pdf(tipo, path):
                 "--pdf-engine=xelatex",
                 "-V", "fontsize=12pt",
                 "-V", "geometry:top=2cm,left=1.5cm,right=2cm,bottom=2cm",
-                "-H", resource_path("FORMATS/header.tex")
+                "-H", resource_path("FORMATS/header.tex"), 
             ]
         )
     else:
@@ -79,7 +85,7 @@ def to_docx(tipo, path):
             to="docx",
             format="markdown",
             outputfile=output_path,
-            extra_args=["--reference-doc=" + resource_path("FORMATS/modelo.docx")]
+            extra_args=["--reference-doc=" + resource_path("FORMATS/modelo.docx")],
         )
     else:
         doc.convert_file(
@@ -87,7 +93,7 @@ def to_docx(tipo, path):
             to="docx",
             format=tipo,
             outputfile=output_path,
-            extra_args=["--reference-doc=" + resource_path("FORMATS/modelo.docx")]
+            extra_args=["--reference-doc=" + resource_path("FORMATS/modelo.docx")],
         )
 
     return f"Conversão de Arquivo Completa! Arquivo gerado em: {os.path.abspath(output_path)}"
@@ -115,7 +121,7 @@ def to_pptx(tipo, path):
             to="pptx",
             format=tipo,
             outputfile=output_path,
-            extra_args=["--reference-doc=" + resource_path("FORMATS/format.pptx")]
+            extra_args=["--reference-doc=" + resource_path("FORMATS/format.pptx")],
         )
 
     return f"Conversão de Arquivo Completa! Arquivo gerado em: {os.path.abspath(output_path)}"
